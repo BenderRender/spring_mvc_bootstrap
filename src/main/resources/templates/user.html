@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .custom-row {
+            background-color: #f1f1f1;
+        }
+        .table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .about-user-form {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border: 1px solid #ccc;
+            z-index: 1;
+            width: 64%; /* Устанавливаем ширину в 80% */
+            left: 53%; /* Положение по центру */
+            transform: translateX(-50%); /* Центрирование относительно родителя */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark" style="display: block; color: white">
+    <div class="container-fluid">
+        <span id="myUserDetails" class="navbar-brand ">
+            <strong th:text="${user.email}"></strong> with roles: <span th:text="${user.rolesAsString}"></span>
+        </span>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-link text-white-50 btn-lg" value="Logout"/>
+        </form>
+    </div>
+</nav>
+
+<form th:action="@{/user}" method="get" class="block-left custom-col-left back-white" style="width: 350px; padding: 10px;">
+    <nav class="nav flex-column nav-pills">
+        <li class="nav-item mb-2" th:if="${hasUserRole}">
+            <button type="submit" class="nav-link btn btn-primary btn-block text-left" aria-current="page">
+                <span class="float-left">User</span>
+            </button>
+        </li>
+        <li class="nav-item mb-2" th:if="${hasAdminRole}">
+            <button type="submit" class="nav-link btn btn-primary btn-block text-left" aria-current="page">
+                <span class="float-left">Admin</span>
+            </button>
+        </li>
+    </nav>
+</form>
+
+
+<div class="container mt-5">
+    <h1>User information-page</h1>
+    <div class="about-user-form">
+        <h5 class="text-left">About user</h5>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table custom-row">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.surname}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.email}"></td>
+                <td>
+                    <span th:text="${user.rolesAsString}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
